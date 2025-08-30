@@ -51,7 +51,8 @@ CREATE TABLE public.blackhole (
     blackhole_id integer NOT NULL,
     gravity integer,
     galaxy_id integer,
-    wormhole boolean DEFAULT false NOT NULL
+    wormhole boolean DEFAULT false NOT NULL,
+    name character varying(255) NOT NULL
 );
 
 
@@ -266,6 +267,9 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 -- Data for Name: blackhole; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.blackhole VALUES (1, NULL, NULL, false, 'black1');
+INSERT INTO public.blackhole VALUES (2, NULL, NULL, false, 'black2');
+INSERT INTO public.blackhole VALUES (3, NULL, NULL, false, 'blac3');
 
 
 --
@@ -303,6 +307,7 @@ INSERT INTO public.moon VALUES (16, 'jerry17', true, 2, 'jerry17');
 INSERT INTO public.moon VALUES (17, 'jerry18', true, 2, 'jerry18');
 INSERT INTO public.moon VALUES (18, 'jerry19', true, 2, 'jerry19');
 INSERT INTO public.moon VALUES (19, 'jerry20', true, 2, 'jerry20');
+INSERT INTO public.moon VALUES (20, 'jerry21', true, 2, 'jerry21');
 
 
 --
@@ -320,6 +325,7 @@ INSERT INTO public.planet VALUES (9, 'venus', NULL, false, 2);
 INSERT INTO public.planet VALUES (10, 'mercury', NULL, false, 3);
 INSERT INTO public.planet VALUES (11, 'enchanted', NULL, false, 4);
 INSERT INTO public.planet VALUES (12, 'fairies', NULL, false, 5);
+INSERT INTO public.planet VALUES (13, 'wattpad', NULL, false, 6);
 
 
 --
@@ -338,7 +344,7 @@ INSERT INTO public.star VALUES (6, 910, 6, 'black', 'blackish');
 -- Name: blackhole_blackhole_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.blackhole_blackhole_id_seq', 1, false);
+SELECT pg_catalog.setval('public.blackhole_blackhole_id_seq', 3, true);
 
 
 --
@@ -352,14 +358,14 @@ SELECT pg_catalog.setval('public.galaxy_galaxy_id_seq', 6, true);
 -- Name: moon_moon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.moon_moon_id_seq', 19, true);
+SELECT pg_catalog.setval('public.moon_moon_id_seq', 20, true);
 
 
 --
 -- Name: planet_planet_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.planet_planet_id_seq', 12, true);
+SELECT pg_catalog.setval('public.planet_planet_id_seq', 13, true);
 
 
 --
@@ -367,6 +373,14 @@ SELECT pg_catalog.setval('public.planet_planet_id_seq', 12, true);
 --
 
 SELECT pg_catalog.setval('public.star_star_id_seq', 6, true);
+
+
+--
+-- Name: blackhole blackhole_name_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.blackhole
+    ADD CONSTRAINT blackhole_name_key UNIQUE (name);
 
 
 --
@@ -399,6 +413,54 @@ ALTER TABLE ONLY public.moon
 
 ALTER TABLE ONLY public.moon
     ADD CONSTRAINT moon_pkey PRIMARY KEY (moon_id);
+
+
+--
+-- Name: moon name_color; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.moon
+    ADD CONSTRAINT name_color UNIQUE (name);
+
+
+--
+-- Name: galaxy name_unique; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.galaxy
+    ADD CONSTRAINT name_unique UNIQUE (name);
+
+
+--
+-- Name: star name_unique_planet; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT name_unique_planet UNIQUE (name);
+
+
+--
+-- Name: star name_unique_star; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT name_unique_star UNIQUE (name);
+
+
+--
+-- Name: star name_unique_universe; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT name_unique_universe UNIQUE (name);
+
+
+--
+-- Name: planet name_unique_world; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.planet
+    ADD CONSTRAINT name_unique_world UNIQUE (name);
 
 
 --
